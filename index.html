@@ -183,6 +183,68 @@
             color: #6c757d;
         }
         
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .share-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #cc2936;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .share-button:hover {
+            background-color: #b02430;
+        }
+        
+        .share-button svg {
+            margin-right: 8px;
+        }
+        
+        .share-tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip-text {
+            visibility: hidden;
+            width: 140px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 150%;
+            left: 50%;
+            margin-left: -70px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+        
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
@@ -261,8 +323,42 @@
     </div>
     
     <footer>
-        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Buy me a Spindrift', '#72a4f2', 'T6T81BMKZG');kofiwidget2.draw();</script> 
+        <div class="footer-buttons">
+            <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Buy me a Spindrift', '#72a4f2', 'T6T81BMKZG');kofiwidget2.draw();</script>
+            
+            <div class="share-tooltip">
+                <button class="share-button" onclick="copyToClipboard()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                    Share
+                </button>
+                <span class="tooltip-text" id="shareTooltip">Copied!</span>
+            </div>
+        </div>
         <p>&copy; 2025 Paul Bills. All rights reserved.</p>
     </footer>
+    
+    <script>
+        function copyToClipboard() {
+            const text = "Check out fivegames: it's five games with fives. https://playfivegames.com";
+            navigator.clipboard.writeText(text).then(function() {
+                const tooltip = document.getElementById("shareTooltip");
+                tooltip.style.visibility = "visible";
+                tooltip.style.opacity = "1";
+                
+                setTimeout(function(){
+                    tooltip.style.visibility = "hidden";
+                    tooltip.style.opacity = "0";
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+    </script>
 </body>
 </html>
